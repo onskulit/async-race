@@ -1,9 +1,11 @@
 import React from 'react';
+import Header from './components/Header/Header';
 
 function App() {
   return (
-    <div className="text-center font-bold">
-      Hello
+    <div className="px-10 from-neutral-800">
+      <Header />
+      Text
     </div>
   );
 }

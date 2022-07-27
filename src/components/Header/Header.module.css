@@ -1,0 +1,3 @@
+.navItem {
+  @apply px-2 py-1 hover:bg-purple-300 hover:cursor-pointer rounded-xl transition-colors;
+}
