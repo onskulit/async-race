@@ -17,3 +17,11 @@
 .buttonColored {
  @apply border-purple-400 bg-purple-400 hover:border-purple-500 hover:bg-purple-500;
 }
+
+.buttonGreen {
+  @apply border-green-200 hover:border-green-400 hover:bg-green-400;
+}
+
+.buttonRed {
+  @apply border-red-200 hover:border-red-400 hover:bg-red-400;
+}
