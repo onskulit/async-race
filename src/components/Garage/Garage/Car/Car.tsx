@@ -22,7 +22,7 @@ function Car({ name, color }: CarProps) {
         <div className="flex gap-1">
           <button type="submit" className={`text-lg w-6 ${styles.button} ${styles.buttonLight}`}>A</button>
           <button type="submit" className={`text-lg w-6 ${styles.button} ${styles.buttonLight}`}>B</button>
-          <CarLogo size="14" color={color} />
+          <CarLogo color={color} />
         </div>
         <img src={flagImg} className="h-14 mr-20" alt="flag-img" />
       </div>

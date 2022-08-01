@@ -2,12 +2,11 @@ import React from 'react';
 
 interface CarLogoProps {
   color: string;
-  size: string;
 }
 
-function CarLogo({ color, size }: CarLogoProps) {
+function CarLogo({ color }: CarLogoProps) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" className={`w-${size} h-${size}`} viewBox="0 0 256 120" xmlSpace="preserve">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" width="56" height="56" viewBox="0 0 256 120" xmlSpace="preserve">
       <g fill={`${color}` || '#000'} transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
         <circle cx="70.735" cy="56.775" r="1.955" transform="  matrix(1 0 0 1 0 0) " />
         <circle cx="19.765" cy="56.775" r="1.955" transform="  matrix(1 0 0 1 0 0) " />
