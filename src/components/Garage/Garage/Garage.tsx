@@ -19,7 +19,7 @@ function Garage() {
         {` (${cars.length})`}
       </h2>
       <div className="px-5">
-        { cars.map(((car) => <Car name={car.name} color={car.color} key={car.id} />)) }
+        { cars.map(((car) => <Car name={car.name} color={car.color} id={car.id} key={car.id} />)) }
       </div>
     </div>
   );

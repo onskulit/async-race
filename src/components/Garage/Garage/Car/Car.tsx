@@ -2,18 +2,26 @@ import React from 'react';
 import styles from '../../Controls.module.css';
 import flagImg from '../../../../assets/flag.svg';
 import CarLogo from '../../../Logos/CarLogo';
+import { garageApi } from '../../../../api/requests';
 
 interface CarProps {
   name: string;
   color: string;
+  id: number;
 }
 
-function Car({ name, color }: CarProps) {
+function Car({ name, color, id }: CarProps) {
   return (
     <div className="h-22 px-2 py-2 border-2 rounded-md mb-2">
       <div className="flex gap-2 mb-2 items-center">
         <button type="submit" className={`text-lg w-20 ${styles.button} ${styles.buttonGreen}`}>Select</button>
-        <button type="submit" className={`text-lg w-20 ${styles.button} ${styles.buttonRed}`}>Remove</button>
+        <button
+          type="submit"
+          className={`text-lg w-20 ${styles.button} ${styles.buttonRed}`}
+          onClick={() => garageApi.deleteCar(id)}
+        >
+          Remove
+        </button>
         <h3 className="text-lg">
           {name}
         </h3>
