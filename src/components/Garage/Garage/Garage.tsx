@@ -18,7 +18,10 @@ function Garage() {
 
   return (
     <div>
-      <h2 className="text-2xl flex justify-center mb-4">Garage</h2>
+      <h2 className="text-2xl flex justify-center mb-4">
+        Garage
+        {` (${cars.length})`}
+      </h2>
       <div className="px-5">
         { cars.map(((car) => <Car name={car.name} color={car.color} key={car.id} />)) }
       </div>

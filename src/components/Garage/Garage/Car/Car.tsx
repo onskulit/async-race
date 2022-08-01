@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../Controls.module.css';
-import carImg from '../../../../assets/car.svg';
 import flagImg from '../../../../assets/flag.svg';
+import CarLogo from '../../../Logos/CarLogo';
 
 interface CarProps {
   name: string;
@@ -16,14 +16,13 @@ function Car({ name, color }: CarProps) {
         <button type="submit" className={`text-lg w-20 ${styles.button} ${styles.buttonRed}`}>Remove</button>
         <h3 className="text-lg">
           {name}
-          {color}
         </h3>
       </div>
       <div className="flex justify-between border-b-4 border-slate-400 border-dashed pt-1">
         <div className="flex gap-1">
           <button type="submit" className={`text-lg w-6 ${styles.button} ${styles.buttonLight}`}>A</button>
           <button type="submit" className={`text-lg w-6 ${styles.button} ${styles.buttonLight}`}>B</button>
-          <img src={carImg} style={{ fill: 'red' }} className="h-14" alt="car-img" />
+          <CarLogo size="14" color={color} />
         </div>
         <img src={flagImg} className="h-14 mr-20" alt="flag-img" />
       </div>
