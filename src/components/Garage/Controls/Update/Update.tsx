@@ -10,7 +10,7 @@ function Update() {
         className={`w-42 ${styles.input} ${styles.inputDisabled}`}
         disabled
       />
-      <div className="inline-block w-12 h-6 bg-slate-500 rounded" />
+      <input type="color" className="w-12 h-6 rounded" disabled />
       <button
         type="submit"
         className={`grow min-w-24 ${styles.button} ${styles.buttonLight}`}
