@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Car from './Car/Car';
-
-interface ICar {
-  name: string;
-  color: string;
-  id: number
-}
+import { garageApi } from '../../../api/requests';
+import { ICar } from '../../../types/interfaces';
 
 function Garage() {
-  const [cars, serCars] = useState<ICar[]>([]);
+  const [cars, setCars] = useState<ICar[]>([]);
+
   useEffect(() => {
-    fetch('http://127.0.0.1:3000/garage')
-      .then((response) => response.json())
-      .then((res) => serCars(res))
-      .catch((error) => console.log(error));
+    /* garageApi.setCar({ name: 'Geely', color: '#3f4929' }); */
+    garageApi.getCars()
+      .then((res) => setCars(res));
   }, []);
 
   return (
