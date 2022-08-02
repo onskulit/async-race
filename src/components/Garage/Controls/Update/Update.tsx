@@ -34,7 +34,7 @@ function Update({ selectedCar, updateCar }: UpdateProps) {
       />
       <input
         type="color"
-        className="w-12 h-6 rounded hover:cursor-pointer"
+        className="w-12 h-6 rounded hover:cursor-pointer "
         disabled={!isSelected}
         value={colorValue}
         onChange={(event) => setColorValue(event.target.value)}

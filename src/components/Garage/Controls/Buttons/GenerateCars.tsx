@@ -1,9 +1,16 @@
 import React from 'react';
 import styles from '../../Controls.module.css';
 
-function GenerateCars() {
+interface GenerateCarsProps {
+  createGeneratedCars(): void;
+}
+function GenerateCars({ createGeneratedCars }: GenerateCarsProps) {
   return (
-    <button type="submit" className={`grow min-w-24 ${styles.button} ${styles.buttonLight} w-24`}>
+    <button
+      type="submit"
+      className={`grow min-w-24 ${styles.button} ${styles.buttonLight} w-24`}
+      onClick={createGeneratedCars}
+    >
       Generate cars
     </button>
   );

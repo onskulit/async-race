@@ -10,8 +10,14 @@ interface ControlsProps {
   selectedCar: ICar;
   setCar({ name, color }: { name: string, color: string}): void;
   updateCar(car: ICar): void;
+  createGeneratedCars(): void;
 }
-function Controls({ setCar, selectedCar, updateCar }: ControlsProps) {
+function Controls({
+  setCar,
+  selectedCar,
+  updateCar,
+  createGeneratedCars,
+}: ControlsProps) {
   return (
     <div className="w-[360px] flex flex-col mb-3 mx-auto text-lg">
       <Create setCar={setCar} />
@@ -19,7 +25,7 @@ function Controls({ setCar, selectedCar, updateCar }: ControlsProps) {
       <div className="flex items-center gap-2">
         <Race />
         <Reset />
-        <GenerateCars />
+        <GenerateCars createGeneratedCars={createGeneratedCars} />
       </div>
     </div>
   );
