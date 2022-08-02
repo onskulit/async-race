@@ -5,9 +5,10 @@ import { ICar } from '../../../types/interfaces';
 interface GarageProps {
   cars: ICar[];
   deleteCar(id: number): void;
+  selectCar({ name, color, id }: ICar): void;
 }
 
-function Garage({ cars, deleteCar }: GarageProps) {
+function Garage({ cars, deleteCar, selectCar }: GarageProps) {
   return (
     <div>
       <h2 className="text-2xl flex justify-center mb-4">
@@ -17,11 +18,10 @@ function Garage({ cars, deleteCar }: GarageProps) {
       <div className="px-5">
         { cars.map(((car) => (
           <Car
-            name={car.name}
-            color={car.color}
-            id={car.id}
+            car={car}
             key={car.id}
             deleteCar={deleteCar}
+            selectCar={selectCar}
           />
         )
         ))}

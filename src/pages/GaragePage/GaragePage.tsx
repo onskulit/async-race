@@ -6,6 +6,7 @@ import { ICar } from '../../types/interfaces';
 
 function GaragePage() {
   const [cars, setCars] = useState<ICar[]>([]);
+  const [selectedCar, setSelectedCar] = useState<ICar>({ name: '', color: '', id: 0 });
 
   async function updateCars() {
     const result = await garageApi.getCars();
@@ -25,13 +26,23 @@ function GaragePage() {
       .then(() => updateCars());
   }, []);
 
+  const updateCar = useCallback((car: ICar) => {
+    garageApi.updateCar(car)
+      .then(() => updateCars());
+    setSelectedCar({ name: '', color: '', id: 0 });
+  }, []);
+
+  const selectCar = useCallback(({ name, color, id }: ICar) => {
+    setSelectedCar({ name, color, id });
+  }, []);
+
   return (
     <main className="text-xl">
-      <div className="px-2 py-10 shadow-lg">
-        <Controls setCar={setCar} />
+      <div className="px-2 py-10 shadow-lg" id="controls">
+        <Controls setCar={setCar} selectedCar={selectedCar} updateCar={updateCar} />
       </div>
       <div className="px-2 py-10 shadow-lg">
-        <Garage cars={cars} deleteCar={deleteCar} />
+        <Garage cars={cars} deleteCar={deleteCar} selectCar={selectCar} />
       </div>
     </main>
   );
