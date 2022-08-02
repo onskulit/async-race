@@ -2,15 +2,20 @@ import React from 'react';
 import styles from '../../Controls.module.css';
 import flagImg from '../../../../assets/flag.svg';
 import CarLogo from '../../../Logos/CarLogo';
-import { garageApi } from '../../../../api/requests';
 
 interface CarProps {
   name: string;
   color: string;
   id: number;
+  deleteCar: (id: number) => void;
 }
 
-function Car({ name, color, id }: CarProps) {
+function Car({
+  name,
+  color,
+  id,
+  deleteCar,
+}: CarProps) {
   return (
     <div className="h-22 px-2 py-2 border-2 rounded-md mb-2">
       <div className="flex gap-2 mb-2 items-center">
@@ -18,7 +23,7 @@ function Car({ name, color, id }: CarProps) {
         <button
           type="submit"
           className={`text-lg w-20 ${styles.button} ${styles.buttonRed}`}
-          onClick={() => garageApi.deleteCar(id)}
+          onClick={() => deleteCar(id)}
         >
           Remove
         </button>

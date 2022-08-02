@@ -20,8 +20,8 @@ export const garageApi = {
     });
     return response.json();
   },
-  deleteCar(id: number) {
-    fetch(`${this.link}/${id}`, {
+  async deleteCar(id: number) {
+    await fetch(`${this.link}/${id}`, {
       method: 'DELETE',
     });
   },

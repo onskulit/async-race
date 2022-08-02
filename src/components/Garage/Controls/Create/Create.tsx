@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { garageApi } from '../../../../api/requests';
 import styles from '../../Controls.module.css';
 
-function Create() {
+interface CreateProps {
+  setCar({ name, color }: { name: string, color: string}): void;
+}
+function Create({ setCar }: CreateProps) {
   const [inputValue, setInputValue] = useState('');
   const [colorValue, setColorValue] = useState('#000000');
   const createCar = () => {
-    garageApi.setCar({ name: inputValue, color: colorValue });
+    setCar({ name: inputValue, color: colorValue });
     setInputValue('');
     setColorValue('#000000');
   };
