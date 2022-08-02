@@ -1,3 +1,5 @@
+import { ICar } from '../types/interfaces';
+
 const initialLink = 'http://127.0.0.1:3000';
 
 export const garageApi = {
@@ -11,33 +13,32 @@ export const garageApi = {
     return response.json();
   },
   async setCar(carData: { name: string, color: string }) {
-    const response = await fetch(this.link, {
+    await fetch(this.link, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(carData),
     });
-    return response.json();
   },
   async deleteCar(id: number) {
     await fetch(`${this.link}/${id}`, {
       method: 'DELETE',
     });
   },
-  async updateCar(id: number, carData: { name: string, color: string }) {
-    const response = await fetch(`${this.link}/${id}`, {
+  async updateCar(car: ICar) {
+    await fetch(`${this.link}/${car.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(carData),
+      body: JSON.stringify({ name: car.name, color: car.color }),
     });
-    return response.json();
   },
 };
 
 export const winnersApi = {
   getWinners() {
+    return true;
   },
 };
