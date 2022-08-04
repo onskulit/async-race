@@ -4,18 +4,29 @@ import generateCars from '../../carsGenerator/carsGenerator';
 import Controls from '../../components/Garage/Controls/Controls';
 import Garage from '../../components/Garage/Garage/Garage';
 import { ICar } from '../../types/interfaces';
+import { updateArrayForPage, updateMaxPage } from '../../utils/pages';
 
-function GaragePage() {
+interface GaragePageProps {
+  currentPage: number;
+}
+
+function GaragePage({ currentPage }: GaragePageProps) {
   const [cars, setCars] = useState<ICar[]>([]);
   const [selectedCar, setSelectedCar] = useState<ICar>({ name: '', color: '', id: 0 });
+  const [maxPage, setMaxPage] = useState(updateMaxPage<ICar>(cars));
+  const [carsForPage, setCarsForPage] = useState(updateArrayForPage<ICar>(cars, currentPage));
 
   async function updateCars() {
     const result = await garageApi.getCars();
     setCars(result);
+    setCarsForPage(updateArrayForPage<ICar>(result, currentPage));
+    console.log(currentPage);
+    setMaxPage(updateMaxPage<ICar>(cars));
   }
+
   useEffect(() => {
     updateCars();
-  }, []);
+  }, [currentPage]);
 
   const deleteCar = useCallback((id: number) => {
     garageApi.deleteCar(id)
@@ -54,7 +65,14 @@ function GaragePage() {
         />
       </div>
       <div className="px-2 py-10 shadow-lg">
-        <Garage cars={cars} deleteCar={deleteCar} selectCar={selectCar} />
+        <Garage
+          currentPage={currentPage}
+          garageLength={cars.length}
+          cars={carsForPage}
+          deleteCar={deleteCar}
+          selectCar={selectCar}
+          maxPage={maxPage}
+        />
       </div>
     </main>
   );
