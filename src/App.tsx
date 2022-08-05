@@ -16,7 +16,7 @@ function App() {
       page = operation === DecOrInc.increment ? page + 1 : page - 1;
       setter(page);
     };
-  }, []);
+  }, [currentGaragePage]);
 
   const memoizedGarageContext = useMemo(() => ({
     updatePage: updatePage(View.garage),
