@@ -1,3 +1,4 @@
+import { EnginePos } from '../types/enums';
 import { ICar } from '../types/interfaces';
 
 const initialLink = 'http://127.0.0.1:3000';
@@ -34,6 +35,32 @@ export const garageApi = {
       },
       body: JSON.stringify({ name: car.name, color: car.color }),
     });
+  },
+};
+
+export const engineApi = {
+  link: `${initialLink}/engine`,
+  async StartOrStop(id: number, status: EnginePos) {
+    const response = await fetch(`${this.link}?${new URLSearchParams({
+      id: id.toString(),
+      status,
+    })}`, {
+      method: 'PATCH',
+    });
+    return response.json();
+  },
+  async checkEngine(id: number) {
+    try {
+      const response = await fetch(`${this.link}?${new URLSearchParams({
+        id: id.toString(),
+        status: EnginePos.drive,
+      })}`, {
+        method: 'PATCH',
+      });
+      console.log(response);
+    } catch (e) {
+      alert(e);
+    }
   },
 };
 

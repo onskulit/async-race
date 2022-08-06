@@ -13,3 +13,14 @@ export enum RaceStatus {
   start = 'START',
   stop = 'STOP',
 }
+
+export enum EnginePos {
+  started = 'started',
+  stopped = 'stopped',
+  drive = 'drive',
+}
+
+export enum RaceMode {
+  manual = 'MANUAL',
+  race = 'RACE',
+}

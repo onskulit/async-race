@@ -22,7 +22,6 @@ function GaragePage({ currentPage }: GaragePageProps) {
     const result = await garageApi.getCars();
     setCars(result);
     setCarsForPage(updateArrayForPage<ICar>(result, currentPage));
-    console.log(currentPage);
     setMaxPage(updateMaxPage<ICar>(cars));
   }
 

@@ -1,10 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import styles from '../../Controls.module.css';
 import flagImg from '../../../../assets/flag.svg';
 import CarLogo from '../../../Logos/CarLogo';
 import { ICar } from '../../../../types/interfaces';
-import { runRaceAnimation, cleanRaceAnimation } from '../../../../utils/races';
-import { RaceStatus } from '../../../../types/enums';
+import { runRaceAnimation, cleanRaceAnimation } from './races';
+import { RaceMode, RaceStatus } from '../../../../types/enums';
 
 interface CarProps {
   car: ICar;
@@ -20,22 +25,32 @@ function Car({
   selectCar,
 }: CarProps) {
   const [isMoving, setIsMoving] = useState(false);
+  const [carAlert, setCarAlert] = useState('');
   const flagRef = useRef<HTMLImageElement | null>(null);
   const carRef = useRef<HTMLDivElement | null>(null);
   const defaultStartPos = '60px';
 
-  const runRace = () => {
-    runRaceAnimation(car.id, carRef.current!, flagRef.current!.offsetLeft + 40);
+  const updateCarAlert = useCallback((alert: string) => setCarAlert(alert), []);
+
+  const runRace = (mode: RaceMode) => {
+    runRaceAnimation(
+      car.id,
+      carRef.current!,
+      flagRef.current!.offsetLeft + 40,
+      mode,
+      updateCarAlert,
+    );
     setIsMoving(true);
   };
 
   const cleanRace = () => {
     cleanRaceAnimation(car.id, carRef.current!, defaultStartPos);
     setIsMoving(false);
+    setCarAlert('');
   };
 
   useEffect(() => {
-    if (raceStatus === RaceStatus.start) runRace();
+    if (raceStatus === RaceStatus.start) runRace(RaceMode.race);
     if (raceStatus === RaceStatus.stop) cleanRace();
   }, [raceStatus]);
 
@@ -65,7 +80,7 @@ function Car({
           <button
             type="submit"
             className={`text-lg w-6 ${styles.button} ${!isMoving ? styles.buttonLight : ''}`}
-            onClick={runRace}
+            onClick={() => runRace(RaceMode.manual)}
             disabled={isMoving}
           >
             A
@@ -80,6 +95,7 @@ function Car({
           </button>
           <div className="inline-block absolute" style={{ left: defaultStartPos }} ref={carRef}>
             <CarLogo color={car.color} />
+            {carAlert && <span>{`${carAlert}`}</span>}
           </div>
         </div>
         <img
