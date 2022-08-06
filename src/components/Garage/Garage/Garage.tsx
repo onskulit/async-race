@@ -3,15 +3,17 @@ import Car from './Car/Car';
 import { ICar } from '../../../types/interfaces';
 import buttonStyles from '../Controls.module.css';
 import { GaragePageContext } from '../../../contexts/context';
-import { DecOrInc } from '../../../types/enums';
+import { DecOrInc, RaceStatus } from '../../../types/enums';
 
 interface GarageProps {
   currentPage: number,
   garageLength: number;
   cars: ICar[];
   maxPage: number;
+  raceStatus: RaceStatus;
   deleteCar(id: number): void;
   selectCar({ name, color, id }: ICar): void;
+  updateRaceStatus(status: RaceStatus): void;
 }
 
 function Garage({
@@ -19,8 +21,10 @@ function Garage({
   garageLength,
   cars,
   maxPage,
+  raceStatus,
   deleteCar,
   selectCar,
+  updateRaceStatus,
 }: GarageProps) {
   const { updatePage } = useContext(GaragePageContext);
   return (
@@ -40,6 +44,7 @@ function Garage({
             key={car.id}
             deleteCar={deleteCar}
             selectCar={selectCar}
+            raceStatus={raceStatus}
           />
         )
         ))}
@@ -48,7 +53,10 @@ function Garage({
         <button
           type="submit"
           className={`${buttonStyles.button} ${currentPage === 1 ? '' : buttonStyles.buttonLight} w-20`}
-          onClick={() => updatePage!(DecOrInc.decrement)}
+          onClick={() => {
+            updatePage!(DecOrInc.decrement);
+            updateRaceStatus(RaceStatus.init);
+          }}
           disabled={currentPage === 1}
         >
           Prev
@@ -56,7 +64,10 @@ function Garage({
         <button
           type="submit"
           className={`${buttonStyles.button} ${currentPage === maxPage ? '' : buttonStyles.buttonLight} w-20`}
-          onClick={() => updatePage!(DecOrInc.increment)}
+          onClick={() => {
+            updatePage!(DecOrInc.increment);
+            updateRaceStatus(RaceStatus.init);
+          }}
           disabled={currentPage === maxPage}
         >
           Next

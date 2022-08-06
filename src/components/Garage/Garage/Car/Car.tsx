@@ -1,18 +1,21 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from '../../Controls.module.css';
 import flagImg from '../../../../assets/flag.svg';
 import CarLogo from '../../../Logos/CarLogo';
 import { ICar } from '../../../../types/interfaces';
-import { runRace, cleanRace } from '../../../../utils/races';
+import { runRaceAnimation, cleanRaceAnimation } from '../../../../utils/races';
+import { RaceStatus } from '../../../../types/enums';
 
 interface CarProps {
   car: ICar;
+  raceStatus: RaceStatus;
   deleteCar: (id: number) => void;
   selectCar({ name, color, id }: ICar): void;
 }
 
 function Car({
   car,
+  raceStatus,
   deleteCar,
   selectCar,
 }: CarProps) {
@@ -20,6 +23,21 @@ function Car({
   const flagRef = useRef<HTMLImageElement | null>(null);
   const carRef = useRef<HTMLDivElement | null>(null);
   const defaultStartPos = '60px';
+
+  const runRace = () => {
+    runRaceAnimation(car.id, carRef.current!, flagRef.current!.offsetLeft + 40);
+    setIsMoving(true);
+  };
+
+  const cleanRace = () => {
+    cleanRaceAnimation(car.id, carRef.current!, defaultStartPos);
+    setIsMoving(false);
+  };
+
+  useEffect(() => {
+    if (raceStatus === RaceStatus.start) runRace();
+    if (raceStatus === RaceStatus.stop) cleanRace();
+  }, [raceStatus]);
 
   return (
     <div className="relative h-22 px-2 py-2 border-2 rounded-md mb-2">
@@ -47,10 +65,7 @@ function Car({
           <button
             type="submit"
             className={`text-lg w-6 ${styles.button} ${!isMoving ? styles.buttonLight : ''}`}
-            onClick={() => {
-              runRace(car.id, carRef.current!, flagRef.current!.offsetLeft + 40);
-              setIsMoving(true);
-            }}
+            onClick={runRace}
             disabled={isMoving}
           >
             A
@@ -58,10 +73,7 @@ function Car({
           <button
             type="submit"
             className={`text-lg w-6 ${styles.button} ${isMoving ? styles.buttonLight : ''}`}
-            onClick={() => {
-              cleanRace(car.id, carRef.current!, defaultStartPos);
-              setIsMoving(false);
-            }}
+            onClick={cleanRace}
             disabled={!isMoving}
           >
             B

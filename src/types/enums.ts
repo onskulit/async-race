@@ -7,3 +7,9 @@ export enum View {
   garage = 'GARAGE',
   winners = 'WINNERS',
 }
+
+export enum RaceStatus {
+  init = 'INIT',
+  start = 'START',
+  stop = 'STOP',
+}

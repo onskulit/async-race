@@ -1,6 +1,6 @@
 const races: [number, ReturnType<typeof setInterval>][] = [];
 
-export const runRace = (id: number, animationItem: HTMLElement, endpoint: number) => {
+export const runRaceAnimation = (id: number, animationItem: HTMLElement, endpoint: number) => {
   const item = animationItem;
   let currentValue = +item.style.left.replace(/[^.0-9]/g, '');
   const race = setInterval(() => {
@@ -16,13 +16,13 @@ export const runRace = (id: number, animationItem: HTMLElement, endpoint: number
   console.log(races);
 };
 
-export const cleanRace = (id: number, animationItem: HTMLElement, startPosition: string) => {
+export const cleanRaceAnimation = (id: number, animItem: HTMLElement, startPosition: string) => {
   const race = races.find((pare) => pare[0] === id);
   if (race) {
     clearInterval(race[1]);
     races.splice(races.indexOf(race), 1);
   }
   console.log(races);
-  const item = animationItem;
+  const item = animItem;
   item.style.left = startPosition;
 };
