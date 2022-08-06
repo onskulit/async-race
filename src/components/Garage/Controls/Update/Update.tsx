@@ -27,7 +27,7 @@ function Update({ selectedCar, updateCar }: UpdateProps) {
       <input
         type="text"
         placeholder="Type here"
-        className={`w-42 ${styles.input} ${!isSelected ? styles.inputDisabled : ''}`}
+        className={`w-[12.5rem] ${styles.input} ${!isSelected ? styles.inputDisabled : ''}`}
         disabled={!isSelected}
         value={inputValue}
         onChange={(event) => setInputValue(event.target.value)}

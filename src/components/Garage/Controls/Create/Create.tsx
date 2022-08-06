@@ -17,7 +17,7 @@ function Create({ setCar }: CreateProps) {
       <input
         type="text"
         placeholder="Type here"
-        className={`w-42 ${styles.input}`}
+        className={`w-[12.5rem] ${styles.input}`}
         value={inputValue}
         onChange={(event) => setInputValue(event.target.value)}
       />
