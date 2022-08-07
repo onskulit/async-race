@@ -62,8 +62,9 @@ export const engineApi = {
 
 export const winnersApi = {
   link: `${initialLink}/winners`,
-  async getWinners(): Promise<IWinner[]> {
-    const response = await fetch(this.link);
+  async getWinners(...args: string[]): Promise<IWinner[]> {
+    const params = args.length ? args.join('&') : '';
+    const response = await fetch(`${this.link}?${params}`);
     return response.json();
   },
   async getWinner(id: number): Promise<IWinner> {

@@ -24,3 +24,13 @@ export enum RaceMode {
   manual = 'MANUAL',
   race = 'RACE',
 }
+
+export enum WinnersSorting {
+  init = '',
+  idDesc = '_sort=id&_order=DESC',
+  idAsc = '_sort=id&_order=ASC',
+  winsDesc = '_sort=wins&_order=DESC',
+  winsAsc = '_sort=wins&_order=ASC',
+  timeDesc = '_sort=time&_order=DESC',
+  timeAsc = '_sort=time&_order=ASC',
+}
