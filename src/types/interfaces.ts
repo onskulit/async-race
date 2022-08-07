@@ -5,7 +5,15 @@ export interface ICar {
 }
 
 export interface IWinner {
-  id?: number;
-  wins?: number;
-  time?: number;
+  id: number;
+  wins: number;
+  time: number;
+}
+
+export interface IWinnerCar {
+  number: number;
+  name: string;
+  color: string;
+  wins: number;
+  time: number;
 }

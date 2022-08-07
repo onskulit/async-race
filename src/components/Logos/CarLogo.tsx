@@ -2,11 +2,12 @@ import React from 'react';
 
 interface CarLogoProps {
   color: string;
+  isCentered?: boolean;
 }
 
-function CarLogo({ color }: CarLogoProps) {
+function CarLogo({ color, isCentered }: CarLogoProps) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" width="56" height="56" viewBox="0 0 256 120" xmlSpace="preserve">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" width="56" height="56" viewBox={`0 0 256 ${isCentered ? 256 : 120}`} xmlSpace="preserve">
       <g fill={`${color}` || '#000'} transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
         <circle cx="70.735" cy="56.775" r="1.955" transform="  matrix(1 0 0 1 0 0) " />
         <circle cx="19.765" cy="56.775" r="1.955" transform="  matrix(1 0 0 1 0 0) " />
@@ -15,5 +16,9 @@ function CarLogo({ color }: CarLogoProps) {
     </svg>
   );
 }
+
+CarLogo.defaultProps = {
+  isCentered: false,
+};
 
 export default CarLogo;

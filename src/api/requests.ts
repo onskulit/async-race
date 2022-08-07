@@ -9,7 +9,7 @@ export const garageApi = {
     const response = await fetch(this.link);
     return response.json();
   },
-  async getCar(id: number) {
+  async getCar(id: number): Promise<ICar> {
     const response = await fetch(`${this.link}/${id}`);
     return response.json();
   },
@@ -62,7 +62,7 @@ export const engineApi = {
 
 export const winnersApi = {
   link: `${initialLink}/winners`,
-  async getWinners() {
+  async getWinners(): Promise<IWinner[]> {
     const response = await fetch(this.link);
     return response.json();
   },
