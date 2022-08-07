@@ -1,5 +1,5 @@
 import { EnginePos } from '../types/enums';
-import { ICar } from '../types/interfaces';
+import { ICar, IWinner } from '../types/interfaces';
 
 const initialLink = 'http://127.0.0.1:3000';
 
@@ -50,22 +50,42 @@ export const engineApi = {
     return response.json();
   },
   async checkEngine(id: number) {
-    try {
-      const response = await fetch(`${this.link}?${new URLSearchParams({
-        id: id.toString(),
-        status: EnginePos.drive,
-      })}`, {
-        method: 'PATCH',
-      });
-      console.log(response);
-    } catch (e) {
-      alert(e);
-    }
+    const response = await fetch(`${this.link}?${new URLSearchParams({
+      id: id.toString(),
+      status: EnginePos.drive,
+    })}`, {
+      method: 'PATCH',
+    });
+    return response.status;
   },
 };
 
 export const winnersApi = {
-  getWinners() {
-    return true;
+  link: `${initialLink}/winners`,
+  async getWinners() {
+    const response = await fetch(this.link);
+    return response.json();
+  },
+  async getWinner(id: number): Promise<IWinner> {
+    const response = await fetch(`${this.link}/${id}`);
+    return response.json();
+  },
+  async setWinner(winner: IWinner) {
+    await fetch(this.link, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(winner),
+    });
+  },
+  async updateWinner(winner: IWinner) {
+    await fetch(`${this.link}/${winner.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ wins: winner.wins, time: winner.time }),
+    });
   },
 };

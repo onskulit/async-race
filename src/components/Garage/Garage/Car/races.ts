@@ -1,5 +1,5 @@
 import { RaceMode, EnginePos } from '../../../../types/enums';
-import { engineApi } from '../../../../api/requests';
+import { engineApi, winnersApi } from '../../../../api/requests';
 
 const races: [number, ReturnType<typeof requestAnimationFrame>][] = [];
 let places: number[] = [];
@@ -9,6 +9,19 @@ const findSpeed = (
   initDistance: number,
   actualDistance: number,
 ) => (velocity * actualDistance * 10) / initDistance;
+
+const sendWinnerInfo = async (id: number, time: string) => {
+  const winnerInfo = await winnersApi.getWinner(id);
+  if (winnerInfo.id) {
+    const winsCount = winnerInfo.wins! + 1;
+    const bestTime = winnerInfo.time! < +time ? winnerInfo.time : +time;
+    await winnersApi.updateWinner({ id, wins: winsCount, time: bestTime });
+  } else {
+    await winnersApi.setWinner({ id, wins: 1, time: +time });
+  }
+  const winners = await winnersApi.getWinners();
+  console.log(winners);
+};
 
 const endRace = (
   mode: RaceMode,
@@ -20,7 +33,7 @@ const endRace = (
     places.push(id);
     const place = places.indexOf(id);
     if (place === 0) {
-      /* Server query */
+      sendWinnerInfo(id, raceTime);
       updateCarAlert(`Winner! ${raceTime}s`);
     } else {
       updateCarAlert(`${place + 1} place. ${raceTime}s`);
@@ -58,6 +71,11 @@ export const runRaceAnimation = async (
     }
   };
   race = requestAnimationFrame(animate);
+  const code = await engineApi.checkEngine(id);
+  if (code === 500) {
+    cancelAnimationFrame(race);
+    updateCarAlert('Engine is broken!');
+  }
   races.push([id, race]);
 };
 
