@@ -19,8 +19,6 @@ const sendWinnerInfo = async (id: number, time: string) => {
   } else {
     await winnersApi.setWinner({ id, wins: 1, time: +time });
   }
-  const winners = await winnersApi.getWinners();
-  console.log(winners);
 };
 
 const endRace = (
@@ -79,12 +77,13 @@ export const runRaceAnimation = async (
   races.push([id, race]);
 };
 
-export const cleanRaceAnimation = (id: number, animItem: HTMLElement, startPosition: string) => {
+export const cleanRaceAnimation = async (id: number, animItem: HTMLElement, startPos: string) => {
+  await engineApi.StartOrStop(id, EnginePos.stopped);
   const race = races.find((pare) => pare[0] === id);
   if (race) {
     cancelAnimationFrame(race[1]);
     races.splice(races.indexOf(race), 1);
   }
   const item = animItem;
-  item.style.left = startPosition;
+  item.style.left = startPos;
 };

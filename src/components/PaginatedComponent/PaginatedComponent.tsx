@@ -35,11 +35,11 @@ function PaginatedComponent({
         </button>
         <button
           type="submit"
-          className={`${buttonStyles.button} ${currentPage === maxPage ? '' : buttonStyles.buttonLight} w-20`}
+          className={`${buttonStyles.button} ${currentPage >= maxPage ? '' : buttonStyles.buttonLight} w-20`}
           onClick={() => {
             updatePage!(DecOrInc.increment);
           }}
-          disabled={currentPage === maxPage}
+          disabled={currentPage >= maxPage}
         >
           Next
         </button>

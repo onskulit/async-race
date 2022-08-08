@@ -18,11 +18,12 @@ function WinnersPage({ currentPage }: WinnersPageProps) {
   const [winners, setWinners] = useState<IWinnerCar[]>([]);
   const [currentAmount, setCurrentAmount] = useState(0);
   const [sorting, setSorting] = useState<WinnersSorting>(WinnersSorting.init);
-  const [maxPage, setMaxPage] = useState(updateMaxPage(currentAmount, limitForPage));
+  const [maxPage, setMaxPage] = useState(1);
   const updateWinners = async () => {
     const response = await winnersApi.getWinners(`_page=${currentPage}`, `_limit=${limitForPage}`, sorting);
-    setCurrentAmount(+response.headers.get('X-Total-Count')!);
-    setMaxPage(updateMaxPage(currentAmount, limitForPage));
+    const total = +response.headers.get('X-Total-Count')!;
+    setCurrentAmount(total);
+    setMaxPage(updateMaxPage(total, limitForPage));
     const winnersInfo = await response.json();
     if (winnersInfo) {
       const winnersWithCarInfo: IWinnerCar[] = [];

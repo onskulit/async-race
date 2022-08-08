@@ -16,27 +16,29 @@ function GaragePage({ currentPage }: GaragePageProps) {
   const [cars, setCars] = useState<ICar[]>([]);
   const [currentAmount, setCurrentAmount] = useState(0);
   const [selectedCar, setSelectedCar] = useState<ICar>({ name: '', color: '', id: 0 });
-  const [maxPage, setMaxPage] = useState(updateMaxPage(currentAmount, limitForPage));
+  const [maxPage, setMaxPage] = useState(1);
   const [raceStatus, setRaceStatus] = useState(RaceStatus.init);
 
   async function updateCars() {
     const response = await garageApi.getCars(`_page=${currentPage}`, `_limit=${limitForPage}`);
-    setCurrentAmount(+response.headers.get('X-Total-Count')!);
+    const total = +response.headers.get('X-Total-Count')!;
+    setCurrentAmount(total);
     const result = await response.json();
     setCars(result);
-    setMaxPage(updateMaxPage(currentAmount, limitForPage));
+    console.log(+response.headers.get('X-Total-Count')!, limitForPage);
+    setMaxPage(updateMaxPage(total, limitForPage));
   }
-
-  useEffect(() => {
-    setRaceStatus(RaceStatus.init);
-    updateCars();
-  }, [currentPage]);
 
   const deleteCar = useCallback(async (id: number) => {
     await garageApi.deleteCar(id);
     await updateCars();
     await winnersApi.deleteWinner(id);
   }, []);
+
+  useEffect(() => {
+    setRaceStatus(RaceStatus.init);
+    updateCars();
+  }, [currentPage]);
 
   const setCar = useCallback(({ name, color }: { name: string, color: string}) => {
     garageApi.setCar({ name, color })

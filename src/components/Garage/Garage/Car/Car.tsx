@@ -43,8 +43,8 @@ function Car({
     setIsMoving(true);
   };
 
-  const cleanRace = () => {
-    cleanRaceAnimation(car.id, carRef.current!, defaultStartPos);
+  const cleanRace = async () => {
+    await cleanRaceAnimation(car.id, carRef.current!, defaultStartPos);
     setIsMoving(false);
     setCarAlert('');
   };
