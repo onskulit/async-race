@@ -1,8 +1,8 @@
-export function updateMaxPage<T>(array: T[], pageLimit = 7) {
-  return Math.ceil(array.length / pageLimit);
+export function updateMaxPage(amount: number, pageLimit = 7) {
+  console.log(Math.ceil(amount / pageLimit));
+  return Math.ceil(amount / pageLimit);
 }
 
-export function updateArrayForPage<T>(array: T[], currentPage: number, pageLimit = 7) {
-  const start = (currentPage - 1) * pageLimit;
-  return array.slice(start, start + pageLimit);
+export function calc() {
+  return 1;
 }

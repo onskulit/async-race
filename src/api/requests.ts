@@ -5,9 +5,10 @@ const initialLink = 'http://127.0.0.1:3000';
 
 export const garageApi = {
   link: `${initialLink}/garage`,
-  async getCars() {
-    const response = await fetch(this.link);
-    return response.json();
+  async getCars(...args: string[]) {
+    const params = args.length ? args.join('&') : '';
+    const response = await fetch(`${this.link}?${params}`);
+    return response;
   },
   async getCar(id: number): Promise<ICar> {
     const response = await fetch(`${this.link}/${id}`);
@@ -62,10 +63,10 @@ export const engineApi = {
 
 export const winnersApi = {
   link: `${initialLink}/winners`,
-  async getWinners(...args: string[]): Promise<IWinner[]> {
+  async getWinners(...args: string[]) {
     const params = args.length ? args.join('&') : '';
     const response = await fetch(`${this.link}?${params}`);
-    return response.json();
+    return response;
   },
   async getWinner(id: number): Promise<IWinner> {
     const response = await fetch(`${this.link}/${id}`);

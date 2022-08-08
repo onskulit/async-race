@@ -5,24 +5,26 @@ import Controls from '../../components/Garage/Controls/Controls';
 import Garage from '../../components/Garage/Garage/Garage';
 import { RaceStatus } from '../../types/enums';
 import { ICar } from '../../types/interfaces';
-import { updateArrayForPage, updateMaxPage } from '../../utils/pages';
+import { updateMaxPage } from '../../utils/pages';
 
 interface GaragePageProps {
   currentPage: number;
 }
 
 function GaragePage({ currentPage }: GaragePageProps) {
+  const limitForPage = 7;
   const [cars, setCars] = useState<ICar[]>([]);
+  const [currentAmount, setCurrentAmount] = useState(0);
   const [selectedCar, setSelectedCar] = useState<ICar>({ name: '', color: '', id: 0 });
-  const [maxPage, setMaxPage] = useState(updateMaxPage<ICar>(cars));
-  const [carsForPage, setCarsForPage] = useState(updateArrayForPage<ICar>(cars, currentPage));
+  const [maxPage, setMaxPage] = useState(updateMaxPage(currentAmount, limitForPage));
   const [raceStatus, setRaceStatus] = useState(RaceStatus.init);
 
   async function updateCars() {
-    const result = await garageApi.getCars();
+    const response = await garageApi.getCars(`_page=${currentPage}`, `_limit=${limitForPage}`);
+    setCurrentAmount(+response.headers.get('X-Total-Count')!);
+    const result = await response.json();
     setCars(result);
-    setCarsForPage(updateArrayForPage<ICar>(result, currentPage));
-    setMaxPage(updateMaxPage<ICar>(cars));
+    setMaxPage(updateMaxPage(currentAmount, limitForPage));
   }
 
   useEffect(() => {
@@ -74,8 +76,8 @@ function GaragePage({ currentPage }: GaragePageProps) {
       <div className="px-2 py-10 shadow-lg">
         <Garage
           currentPage={currentPage}
-          garageLength={cars.length}
-          cars={carsForPage}
+          garageLength={currentAmount}
+          cars={cars}
           maxPage={maxPage}
           raceStatus={raceStatus}
           deleteCar={deleteCar}

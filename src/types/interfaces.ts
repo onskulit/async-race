@@ -11,6 +11,7 @@ export interface IWinner {
 }
 
 export interface IWinnerCar {
+  id: number;
   number: number;
   name: string;
   color: string;
