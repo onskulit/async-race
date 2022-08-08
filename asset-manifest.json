@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/async-race/static/css/main.66f0e2a2.css",
+    "main.js": "/async-race/static/js/main.e10e77d6.js",
+    "static/media/flag.svg": "/async-race/static/media/flag.ae7ef433203604810304e3d5cfe48bf7.svg",
+    "index.html": "/async-race/index.html",
+    "main.66f0e2a2.css.map": "/async-race/static/css/main.66f0e2a2.css.map",
+    "main.e10e77d6.js.map": "/async-race/static/js/main.e10e77d6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.66f0e2a2.css",
+    "static/js/main.e10e77d6.js"
+  ]
+}
