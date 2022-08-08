@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../Controls.module.css';
+import styles from '../../../Controls.module.css';
 
 interface GenerateCarsProps {
   createGeneratedCars(): void;

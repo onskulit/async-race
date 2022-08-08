@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ICar } from '../../../../types/interfaces';
-import styles from '../../Controls.module.css';
+import styles from '../../../Controls.module.css';
 
 interface UpdateProps {
   selectedCar: ICar;

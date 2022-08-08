@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import Car from './Car/Car';
 import { ICar } from '../../../types/interfaces';
-import buttonStyles from '../Controls.module.css';
 import { GaragePageContext } from '../../../contexts/context';
-import { DecOrInc, RaceStatus } from '../../../types/enums';
+import { RaceStatus } from '../../../types/enums';
+import PaginatedComponent from '../../PaginatedComponent/PaginatedComponent';
 
 interface GarageProps {
   currentPage: number,
@@ -13,7 +13,6 @@ interface GarageProps {
   raceStatus: RaceStatus;
   deleteCar(id: number): void;
   selectCar({ name, color, id }: ICar): void;
-  updateRaceStatus(status: RaceStatus): void;
 }
 
 function Garage({
@@ -24,7 +23,6 @@ function Garage({
   raceStatus,
   deleteCar,
   selectCar,
-  updateRaceStatus,
 }: GarageProps) {
   const { updatePage } = useContext(GaragePageContext);
   return (
@@ -33,46 +31,20 @@ function Garage({
         Garage
         {` (${garageLength})`}
       </h2>
-      <h4 className="text-lg flex justify-center mb-4">
-        Page #
-        {currentPage}
-      </h4>
-      <div className="px-5 mb-4">
-        { cars.map(((car) => (
-          <Car
-            car={car}
-            key={car.id}
-            deleteCar={deleteCar}
-            selectCar={selectCar}
-            raceStatus={raceStatus}
-          />
-        )
-        ))}
-      </div>
-      <div className="flex justify-center gap-4">
-        <button
-          type="submit"
-          className={`${buttonStyles.button} ${currentPage === 1 ? '' : buttonStyles.buttonLight} w-20`}
-          onClick={() => {
-            updatePage!(DecOrInc.decrement);
-            updateRaceStatus(RaceStatus.init);
-          }}
-          disabled={currentPage === 1}
-        >
-          Prev
-        </button>
-        <button
-          type="submit"
-          className={`${buttonStyles.button} ${currentPage === maxPage ? '' : buttonStyles.buttonLight} w-20`}
-          onClick={() => {
-            updatePage!(DecOrInc.increment);
-            updateRaceStatus(RaceStatus.init);
-          }}
-          disabled={currentPage === maxPage}
-        >
-          Next
-        </button>
-      </div>
+      <PaginatedComponent currentPage={currentPage} maxPage={maxPage} updatePage={updatePage!}>
+        <div className="px-5">
+          { cars.map(((car) => (
+            <Car
+              car={car}
+              key={car.id}
+              deleteCar={deleteCar}
+              selectCar={selectCar}
+              raceStatus={raceStatus}
+            />
+          )
+          ))}
+        </div>
+      </PaginatedComponent>
     </div>
   );
 }

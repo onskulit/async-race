@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../../Controls.module.css';
+import styles from '../../../Controls.module.css';
 
 interface CreateProps {
   setCar({ name, color }: { name: string, color: string}): void;

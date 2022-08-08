@@ -26,6 +26,7 @@ function GaragePage({ currentPage }: GaragePageProps) {
   }
 
   useEffect(() => {
+    setRaceStatus(RaceStatus.init);
     updateCars();
   }, [currentPage]);
 
@@ -79,7 +80,6 @@ function GaragePage({ currentPage }: GaragePageProps) {
           raceStatus={raceStatus}
           deleteCar={deleteCar}
           selectCar={selectCar}
-          updateRaceStatus={updateRaceStatus}
         />
       </div>
     </main>

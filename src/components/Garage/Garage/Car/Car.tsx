@@ -4,7 +4,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import styles from '../../Controls.module.css';
+import styles from '../../../Controls.module.css';
 import flagImg from '../../../../assets/flag.svg';
 import CarLogo from '../../../Logos/CarLogo';
 import { ICar } from '../../../../types/interfaces';

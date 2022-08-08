@@ -1,6 +1,6 @@
 import React from 'react';
 import { RaceStatus } from '../../../../types/enums';
-import styles from '../../Controls.module.css';
+import styles from '../../../Controls.module.css';
 
 interface ResetProps {
   updateRaceStatus(status: RaceStatus): void;
