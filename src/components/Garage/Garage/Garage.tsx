@@ -4,6 +4,7 @@ import { ICar } from '../../../types/interfaces';
 import { GaragePageContext } from '../../../contexts/context';
 import { RaceStatus } from '../../../types/enums';
 import PaginatedComponent from '../../PaginatedComponent/PaginatedComponent';
+import Announce from '../../Announce/Announce';
 
 interface GarageProps {
   currentPage: number,
@@ -32,18 +33,21 @@ function Garage({
         {garageLength !== 0 && ` (${garageLength})`}
       </h2>
       <PaginatedComponent currentPage={currentPage} maxPage={maxPage} updatePage={updatePage!}>
-        <div className="px-5">
-          { cars.map(((car) => (
-            <Car
-              car={car}
-              key={car.id}
-              deleteCar={deleteCar}
-              selectCar={selectCar}
-              raceStatus={raceStatus}
-            />
-          )
-          ))}
-        </div>
+        <>
+          <div className="px-5">
+            {cars.length > 0 && cars.map(((car) => (
+              <Car
+                car={car}
+                key={car.id}
+                deleteCar={deleteCar}
+                selectCar={selectCar}
+                raceStatus={raceStatus}
+              />
+            )
+            ))}
+          </div>
+          {!cars.length && <Announce>There is no cars yet</Announce>}
+        </>
       </PaginatedComponent>
     </div>
   );

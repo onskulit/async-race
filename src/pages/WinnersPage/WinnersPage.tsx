@@ -7,6 +7,7 @@ import { WinnersSorting } from '../../types/enums';
 import { WinnersPageContext } from '../../contexts/context';
 import PaginatedComponent from '../../components/PaginatedComponent/PaginatedComponent';
 import { updateMaxPage } from '../../utils/pages';
+import Announce from '../../components/Announce/Announce';
 
 interface WinnersPageProps {
   currentPage: number;
@@ -58,50 +59,54 @@ function WinnersPage({ currentPage }: WinnersPageProps) {
         {currentAmount !== 0 && ` (${currentAmount})`}
       </h2>
       <PaginatedComponent currentPage={currentPage} maxPage={maxPage} updatePage={updatePage!}>
-        <table>
-          <thead>
-            <tr className="bg-purple-300">
-              <th className={styles.cell}>Number</th>
-              <th className={`${styles.cell} w-20`}>Car</th>
-              <th className={`${styles.cell} w-40`}>Name</th>
-              <th
-                className={`${styles.cell} cursor-pointer`}
-                onClick={() => {
-                  if (sorting === WinnersSorting.winsAsc) {
-                    setSorting(WinnersSorting.winsDesc);
-                  } else {
-                    setSorting(WinnersSorting.winsAsc);
-                  }
-                }}
-              >
-                Wins
-                <div className="inline-block w-1">
-                  {sorting === WinnersSorting.winsAsc && '↑'}
-                  {sorting === WinnersSorting.winsDesc && '↓'}
-                </div>
-              </th>
-              <th
-                className={`${styles.cell} cursor-pointer`}
-                onClick={() => {
-                  if (sorting === WinnersSorting.timeAsc) {
-                    setSorting(WinnersSorting.timeDesc);
-                  } else {
-                    setSorting(WinnersSorting.timeAsc);
-                  }
-                }}
-              >
-                Best Time (s)
-                <div className="inline-block w-1">
-                  {sorting === WinnersSorting.timeAsc && '↑'}
-                  {sorting === WinnersSorting.timeDesc && '↓'}
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {winners.map((winner) => <Winner winnerInfo={winner} key={winner.id} />)}
-          </tbody>
-        </table>
+        <div>
+          <table>
+            <thead>
+              <tr className="bg-purple-300">
+                <th className={styles.cell}>Number</th>
+                <th className={`${styles.cell} w-20`}>Car</th>
+                <th className={`${styles.cell} w-40`}>Name</th>
+                <th
+                  className={`${styles.cell} cursor-pointer`}
+                  onClick={() => {
+                    if (sorting === WinnersSorting.winsAsc) {
+                      setSorting(WinnersSorting.winsDesc);
+                    } else {
+                      setSorting(WinnersSorting.winsAsc);
+                    }
+                  }}
+                >
+                  Wins
+                  <div className="inline-block w-1">
+                    {sorting === WinnersSorting.winsAsc && '↑'}
+                    {sorting === WinnersSorting.winsDesc && '↓'}
+                  </div>
+                </th>
+                <th
+                  className={`${styles.cell} cursor-pointer`}
+                  onClick={() => {
+                    if (sorting === WinnersSorting.timeAsc) {
+                      setSorting(WinnersSorting.timeDesc);
+                    } else {
+                      setSorting(WinnersSorting.timeAsc);
+                    }
+                  }}
+                >
+                  Best Time (s)
+                  <div className="inline-block w-1">
+                    {sorting === WinnersSorting.timeAsc && '↑'}
+                    {sorting === WinnersSorting.timeDesc && '↓'}
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {winners.length > 0
+              && winners.map((winner) => <Winner winnerInfo={winner} key={winner.id} />)}
+            </tbody>
+          </table>
+          {!winners.length && <Announce>There is no winners yet</Announce>}
+        </div>
       </PaginatedComponent>
     </main>
   );
