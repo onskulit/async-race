@@ -25,7 +25,6 @@ function GaragePage({ currentPage }: GaragePageProps) {
     setCurrentAmount(total);
     const result = await response.json();
     setCars(result);
-    console.log(+response.headers.get('X-Total-Count')!, limitForPage);
     setMaxPage(updateMaxPage(total, limitForPage));
   }
 
