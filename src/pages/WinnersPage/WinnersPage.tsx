@@ -55,7 +55,7 @@ function WinnersPage({ currentPage }: WinnersPageProps) {
     <main className="flex flex-col items-center px-2 py-10 text-xl shadow-lg">
       <h2 className="text-2xl flex justify-center mb-4">
         Winners
-        {currentAmount && ` (${currentAmount})`}
+        {currentAmount !== 0 && ` (${currentAmount})`}
       </h2>
       <PaginatedComponent currentPage={currentPage} maxPage={maxPage} updatePage={updatePage!}>
         <table>

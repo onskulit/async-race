@@ -29,7 +29,7 @@ function Garage({
     <div>
       <h2 className="text-2xl flex justify-center mb-4">
         Garage
-        {` (${garageLength})`}
+        {garageLength !== 0 && ` (${garageLength})`}
       </h2>
       <PaginatedComponent currentPage={currentPage} maxPage={maxPage} updatePage={updatePage!}>
         <div className="px-5">
