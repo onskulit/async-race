@@ -90,4 +90,9 @@ export const winnersApi = {
       body: JSON.stringify({ wins: winner.wins, time: winner.time }),
     });
   },
+  async deleteWinner(id: number) {
+    await fetch(`${this.link}/${id}`, {
+      method: 'DELETE',
+    });
+  },
 };

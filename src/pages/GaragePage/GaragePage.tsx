@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { garageApi } from '../../api/requests';
+import { garageApi, winnersApi } from '../../api/requests';
 import generateCars from '../../carsGenerator/carsGenerator';
 import Controls from '../../components/Garage/Controls/Controls';
 import Garage from '../../components/Garage/Garage/Garage';
@@ -32,9 +32,10 @@ function GaragePage({ currentPage }: GaragePageProps) {
     updateCars();
   }, [currentPage]);
 
-  const deleteCar = useCallback((id: number) => {
-    garageApi.deleteCar(id)
-      .then(() => updateCars());
+  const deleteCar = useCallback(async (id: number) => {
+    await garageApi.deleteCar(id);
+    await updateCars();
+    await winnersApi.deleteWinner(id);
   }, []);
 
   const setCar = useCallback(({ name, color }: { name: string, color: string}) => {
